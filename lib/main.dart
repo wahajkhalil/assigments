@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutterapp/MenuPage.dart';
-import 'package:flutterapp/ProviderCart.dart';
+ import 'package:flutterapp/Provider/ProviderCart.dart';
+import 'package:flutterapp/Screens/MenuPage.dart';
 import 'package:provider/provider.dart';
 
 void main() {

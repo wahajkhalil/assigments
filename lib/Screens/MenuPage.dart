@@ -1,15 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Data/DataClass.dart';
-import 'package:flutterapp/Widget/MenuCard.dart';
+import 'package:flutterapp/Screens/ShopingCartScreen.dart';
+import 'package:provider/provider.dart';
 
+import '../Provider/ProviderCart.dart';
 import 'ItemDetailPage.dart';
  
 
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItems = cartProvider.cartItems;
+
+
+
     return Scaffold(
-      appBar: AppBar(title: Text('Menu')),
+
+    appBar: AppBar(title: Text('Menu'), actions: [
+        IconButton(
+          icon: Icon(Icons.shopping_cart),
+          onPressed: () {
+            // Add your click listener logic here
+            // For example, you can navigate to the cart screen
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+          },
+        ),
+
+      cartItems.length > 0
+          ? Positioned(
+        right: 0,
+        top: 0,
+        child: Container(
+          margin: EdgeInsets.only(right: 16.0),
+          padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.red,
+          ),
+          child: Text(
+            cartItems.length.toString(),
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      )
+          : Container(),
+      ],),
       body: ListView(
         children: [
           Padding(

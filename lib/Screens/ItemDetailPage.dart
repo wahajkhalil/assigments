@@ -1,51 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Data/DataClass.dart';
-import 'package:flutterapp/ShopingCartScreen.dart';
+import 'package:flutterapp/Provider/ProviderCart.dart';
+import 'package:flutterapp/Screens/ShopingCartScreen.dart';
 import 'package:provider/provider.dart';
-
-import 'ProviderCart.dart';
-import 'Widget/MenuCard.dart';
-
-// class ItemDetailsPage extends StatelessWidget {
-//   final MenuCard menuCard;
-//
-//   ItemDetailsPage(this.menuCard);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(menuCard.title),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text("Item Detail Page" , style: TextStyle(fontFamily: "mainfont",fontSize: 20),textAlign: TextAlign.start,)
-//             ,    SizedBox(
-//               width: 100.0,
-//               height:50.0,
-//
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Image.asset(menuCard.image),
-//             ),
-//             SizedBox(
-//               width: 100.0,
-//               height:50.0,
-//
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Text(menuCard.description),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 
 
@@ -87,6 +44,10 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
             child: Text(widget.description),
           ),
           Text('Price: \$${widget.price.toStringAsFixed(2)}'),
+
+
+
+
           ElevatedButton(
             onPressed: () {
               final cartProvider = Provider.of<CartProvider>(context, listen: false);
@@ -94,7 +55,7 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Added to cart'),
+                  content: Text('Added to cart'), duration: Duration(seconds: 1),
                 ),
               );
             },
