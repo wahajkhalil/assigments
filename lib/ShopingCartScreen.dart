@@ -3,48 +3,57 @@ import 'package:flutter/widgets.dart';
 import 'package:flutterapp/CheckoutScreen.dart';
 import 'package:flutterapp/Data/DataClass.dart';
 
-class ShoppingCartPage extends StatelessWidget {
-  final ShoppingCart cart;
+import 'package:flutter/material.dart';
+import 'package:flutterapp/ProviderCart.dart';
+import 'package:provider/provider.dart';
 
-  ShoppingCartPage({required this.cart});
-
+class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItems = cartProvider.cartItems;
+
+    double totalAmount = 0.0;
+    cartItems.forEach((item) {
+      // Do something with each item
+      totalAmount += item.price;
+    });
+
+
     return Scaffold(
-      appBar: AppBar(title: Text('Shopping Cart')),
-      body: Center(
-        child: Column(
-          children: [
-            Text('Items in Cart:'),
-            Expanded(
-              child: ListView.builder(
-                itemCount: cart.items.length,
-                itemBuilder: (context, index) {
-                  final item = cart.items[index];
-                  return ListTile(
+      appBar: AppBar(
+        title: Text('Cart'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              itemCount: cartItems.length,
+              itemBuilder: (context, index) {
+                final item = cartItems[index];
+                return Center(
+                  child: ListTile(
                     title: Text(item.name),
                     subtitle: Text('\$${item.price.toStringAsFixed(2)}'),
-                  );
-                },
-              ),
-            ),
-            Text('Total Cost: \$${cart.calculateTotalCost().toStringAsFixed(2)}'),
-            ElevatedButton(
-              onPressed: () {
-             //    Navigator.push(
-             //      context,
-             // //      MaterialPageRoute(
-             // // ///       builder: (context) => CheckoutPage( cart),
-             // //      ),
-             //    );
-
-                // widget.cart.addItem(MenuItem(name: widget.name, price: widget.price));
+                    // Add a delete button to remove items from the cart
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        cartProvider.removeFromCart(item);
+                      },
+                    ),
+                  ),
+                );
               },
-              child: Text('Place order'),
-            )
-          ],
-        ),
+            ),
+          ),
+          // Display the total amount
+          Text('Total Amount: \$${totalAmount.toStringAsFixed(2)}'),
+        ],
       ),
     );
   }
+
+  // Replace this with your actual logic for getting the price of an item
+
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/Data/DataClass.dart';
 import 'package:flutterapp/ShopingCartScreen.dart';
+import 'package:provider/provider.dart';
 
+import 'ProviderCart.dart';
 import 'Widget/MenuCard.dart';
 
 // class ItemDetailsPage extends StatelessWidget {
@@ -67,6 +69,8 @@ class MenuItemDetail extends StatefulWidget {
 }
 
 class _MenuItemDetailState extends State<MenuItemDetail> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +89,9 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
           Text('Price: \$${widget.price.toStringAsFixed(2)}'),
           ElevatedButton(
             onPressed: () {
-              widget.cart.addItem(MenuItem(name: widget.name, price: widget.price));
+              final cartProvider = Provider.of<CartProvider>(context, listen: false);
+              cartProvider.addToCart(MenuItem(name: widget.name, price: widget.price));
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Added to cart'),
@@ -98,7 +104,7 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ShoppingCartPage(cart:   widget.cart),
+                  builder: (context) => CartPage(),
                 ),
               );
 
