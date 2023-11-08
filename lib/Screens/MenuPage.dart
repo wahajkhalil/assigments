@@ -19,37 +19,44 @@ class MenuPage extends StatelessWidget {
 
 
     return Scaffold(
-
-    appBar: AppBar(title: Text('Menu'), actions: [
-        IconButton(
-          icon: Icon(Icons.shopping_cart),
-          onPressed: () {
-            // Add your click listener logic here
-            // For example, you can navigate to the cart screen
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
-          },
-        ),
-
-      cartItems.length > 0
-          ? Positioned(
-        right: 0,
-        top: 0,
-        child: Container(
-          margin: EdgeInsets.only(right: 16.0),
-          padding: EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.red,
+      appBar: AppBar(
+        title: Text('Menu'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    // Add your click listener logic here
+                    // For example, you can navigate to the cart screen
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                  },
+                ),
+                if (cartItems.length > 0)
+                  Positioned(
+                    right: 8, // Adjust the position as needed
+                    top: 8, // Adjust the position as needed
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                      ),
+                      child: Text(
+                        cartItems.length.toString(),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
-          child: Text(
-            cartItems.length.toString(),
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      )
-          : Container(),
-      ],),
-      body: ListView(
+        ],
+      ),
+
+       body: ListView(
         children: [
           Container(
               child: CarouselSlider(
