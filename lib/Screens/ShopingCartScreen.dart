@@ -32,7 +32,12 @@ class CartPage extends StatelessWidget {
                 itemCount: cartItems.length,
                 itemBuilder: (context, index) {
                   final item = cartItems[index];
-                  return Center(
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0), // Adjust the corner radius as needed
+                    ),
+                    elevation: 4, // Add elevation for a shadow effect
+                    margin: EdgeInsets.all(8.0), // Add margin for spacing
                     child: ListTile(
                       title: Text(item.name),
                       subtitle: Text('\$${item.price.toStringAsFixed(2)}'),
@@ -44,37 +49,49 @@ class CartPage extends StatelessWidget {
                         },
                       ),
                     ),
+
                   );
                 },
               ),
             ),
             // Display the total amount
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(child: Text('Total Amount: \$${totalAmount.toStringAsFixed(2)}',style: TextStyle(fontSize:40,fontFamily: 'mainfontBold' ),)),
-            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0), // Adjust the corner radius as needed
+              ),
+              elevation: 4, // Add elevation for a shadow effect
+              margin: EdgeInsets.all(8.0), // Add margin for spacing
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'Total Amount: \$${totalAmount.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 40, fontFamily: 'mainfontBold'),
+                      ),
+                    ),
+                  ),
 
-        SizedBox(
-        width: 100.0,
-        height: 80.0,
-     )
-            ,
-            ElevatedButton.icon(
-              onPressed: () {
-                // Navigate to the next screen here
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CheckoutPage(),
-                ));
-              },
-              icon: Icon(Icons.arrow_forward), // Built-in icon
-              label: Text('Go to Second Screen'),
-
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      // Navigate to the next screen here
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CheckoutPage(),
+                      ));
+                    },
+                    icon: Icon(Icons.arrow_forward), // Built-in icon
+                    label: Text('Go to Place Order Screen'),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                    height: 40.0,
+                  ),
+                ],
+              ),
             )
 
-,      SizedBox(
-              width: 100.0,
-              height: 80.0,
-            )
           ],
         ),
       ),

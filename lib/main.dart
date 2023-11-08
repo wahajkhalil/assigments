@@ -55,57 +55,54 @@ class HomePage extends StatelessWidget {
 
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.brown, // Set the background color to red
-        ) ,
-
-         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-         Container(
-             height: 600, // Set the height of the container
-             child:Image.asset('assets/images/homepageicon.jpg')
-
-            ),
-
-            SizedBox(height: 20),
-
-        Container(
-          width: 200, // Set the desired width
-
-          child: ElevatedButton(
-            onPressed: () {
-
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MenuPage()));
-              // Add the action you want the button to perform
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                EdgeInsets.all(16.0),
-              ),
-            ),
-            child: Text(
-              'Go To Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: "mainfontBold",
-              ),
-            ),
+      body: Stack(
+        fit: StackFit.expand, // Makes the Stack take the full screen space
+        children: [
+          // Image that fits the screen
+          Image.asset(
+            'assets/images/images.png', // Replace with your image path
+            fit: BoxFit.scaleDown ,
           ),
-        ),
+          // Overlapping button at the bottom
+          Positioned(
+            left: 15,
+            right: 15,
+            bottom: 15,
+            child: Container(
+               child:
+                 ElevatedButton(
+                   onPressed: () {
 
-          ],
-        ),
+                     Navigator.of(context).push(MaterialPageRoute(
+                         builder: (context) => MenuPage()));
+                     // Add the action you want the button to perform
+                   },
+                   style: ButtonStyle(
+                     backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                       RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(30.0),
+                       ),
+                     ),
+                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                       EdgeInsets.all(16.0),
+                     ),
+                   ),
+                   child: Text(
+                     'Go To Menu',
+                     style: TextStyle(
+                       color: Colors.white,
+                       fontSize: 16,
+                       fontFamily: "mainfontBold",
+                     ),
+                   ),
+                 ),
+               ),
+              ),
+           ],
+
       ),
     );
   }
 }
+
