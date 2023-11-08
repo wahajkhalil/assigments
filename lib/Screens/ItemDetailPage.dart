@@ -29,32 +29,40 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.name)),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align at the bottom
+
+        mainAxisAlignment: MainAxisAlignment.spaceAround, // Align at the bottom
         children: [
           Image.asset(widget.image),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align text to the start and price to the end
+
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.only(left: 16.0), // Adjust the left margin as needed
                 child: Text(
+
                   widget.name,
                   style: TextStyle(fontSize: 20, fontFamily: "mainfont"),
                   textAlign: TextAlign.start,
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Price: \$${widget.price.toStringAsFixed(2)}',
-                  textAlign: TextAlign.end,
-                  style: TextStyle(fontFamily: "mainfont", fontSize: 20),
+              Container(
+                alignment: Alignment.centerRight, // Align content to the right
+
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0), // Adjust the left margin as needed
+                  child: Text(
+                    'Price: \$${widget.price.toStringAsFixed(2)}',
+
+                    style: TextStyle(fontFamily: "mainfont", fontSize: 20),
+                  ),
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(left: 16.0), // Adjust the left margin as needed
             child: Text(widget.description, style: TextStyle(fontSize: 20, fontFamily: "")),
           ),
           Card(
