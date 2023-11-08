@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutterapp/Data/DataClass.dart';
 import 'package:flutterapp/Screens/ShopingCartScreen.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,10 @@ class MenuPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu'),
+        title: Text('Menu Page').animate().fadeIn() // uses `Animate.defaultDuration`
+            .scale() // inherits duration from fadeIn
+            .move(delay: 300.ms, duration: 600.ms) // runs after the above w/new duration
+            ,
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -77,7 +81,8 @@ class MenuPage extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Please Select the Menu" ,textAlign: TextAlign.center, style: TextStyle(fontSize: 20,fontFamily: "mainfont"),),
+            child: Text("Please Select the Menu" ,textAlign: TextAlign.center, style: TextStyle(fontSize: 20,fontFamily: "mainfont"),) .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                .fadeOut(curve: Curves.easeInOut),
           ),
 
           MenuItemCard(name: 'Chow mein', description: 'Chow mein is a Chinese dish made from stir-fried noodles with vegetables and sometimes meat or tofu. Over the centuries, variations of chǎomiàn were developed in', price: 10.99, image: 'assets/images/food1.jpeg'),

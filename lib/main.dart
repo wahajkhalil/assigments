@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
  import 'package:flutterapp/Provider/ProviderCart.dart';
 import 'package:flutterapp/Screens/MenuPage.dart';
 import 'package:provider/provider.dart';
@@ -45,15 +46,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Pizza hut Home Page',
 
-          style: TextStyle(
-          fontSize: 25,
-          fontFamily: "mainfontBold",
-          color: Colors.white,
-        ),
-
-        ),
+        title: Text("Pizza Hut Main Branch").animate()
+            .fade(duration: 500.ms)
+            .scale(delay: 500.ms),
       ),
       body: Stack(
         fit: StackFit.expand, // Makes the Stack take the full screen space
@@ -95,7 +91,9 @@ class HomePage extends StatelessWidget {
                        fontSize: 16,
                        fontFamily: "mainfontBold",
                      ),
-                   ),
+                   ).animate()
+                       .fade(duration: 500.ms)
+                       .scale(delay: 500.ms),
                  ),
                ),
               ),
