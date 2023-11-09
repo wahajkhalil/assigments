@@ -24,6 +24,4 @@ class MenuItem {
     required this.name,
     required this.price,
   });
-
-
 }

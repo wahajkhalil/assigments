@@ -13,7 +13,8 @@ class CheckoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
     cartItems = cartProvider.cartItems;
-    double totalCost = cartItems.map((item) => item.price).fold(0, (a, b) => a + b);
+    double totalCost =
+        cartItems.map((item) => item.price).fold(0, (a, b) => a + b);
 
     return Scaffold(
       appBar: AppBar(title: Text('Checkout')),
@@ -29,7 +30,8 @@ class CheckoutPage extends StatelessWidget {
           ),
           Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0), // Adjust the corner radius as needed
+              borderRadius: BorderRadius.circular(
+                  12.0), // Adjust the corner radius as needed
             ),
             elevation: 4, // Add elevation for a shadow effect
             margin: EdgeInsets.all(16.0), // Add margin for spacing
@@ -37,7 +39,8 @@ class CheckoutPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  Text('Total Cost: \$${totalCost.toStringAsFixed(2)}', style: TextStyle(fontSize: 40)),
+                  Text('Total Cost: \$${totalCost.toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 40)),
                   ElevatedButton(
                     onPressed: () {
                       _showCongratulatoryDialog(context);
@@ -85,7 +88,8 @@ class CheckoutPage extends StatelessWidget {
           Container(
             width: 100, // Set the width as needed
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50), // Adjust the radius for a round button
+              borderRadius: BorderRadius.circular(
+                  50), // Adjust the radius for a round button
             ),
             child: ElevatedButton(
               onPressed: () {
@@ -93,8 +97,7 @@ class CheckoutPage extends StatelessWidget {
               },
               child: Text('OK'),
             ),
-          )
-          ,
+          ),
         ],
       ),
     );

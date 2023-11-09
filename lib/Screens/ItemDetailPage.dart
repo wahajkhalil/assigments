@@ -29,7 +29,6 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
     final cartProvider = Provider.of<CartProvider>(context);
     final cartItems = cartProvider.cartItems;
 
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.name),
@@ -43,7 +42,8 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
                   onPressed: () {
                     // Add your click listener logic here
                     // For example, you can navigate to the cart screen
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartPage()));
                   },
                 ),
                 if (cartItems.length > 0)
@@ -68,32 +68,31 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
         ],
       ),
       body: Column(
-
         mainAxisAlignment: MainAxisAlignment.spaceAround, // Align at the bottom
         children: [
           Image.asset(widget.image),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align text to the start and price to the end
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // Align text to the start and price to the end
 
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 16.0), // Adjust the left margin as needed
+                padding: EdgeInsets.only(left: 16.0),
+                // Adjust the left margin as needed
                 child: Text(
-
                   widget.name,
                   style: TextStyle(fontSize: 20, fontFamily: "mainfont"),
                   textAlign: TextAlign.start,
                 ),
               ),
-
               Container(
                 alignment: Alignment.centerRight, // Align content to the right
 
                 child: Padding(
-                  padding: EdgeInsets.only(right: 16.0), // Adjust the left margin as needed
+                  padding: EdgeInsets.only(right: 16.0),
+                  // Adjust the left margin as needed
                   child: Text(
                     'Price: \$${widget.price.toStringAsFixed(2)}',
-
                     style: TextStyle(fontFamily: "mainfont", fontSize: 20),
                   ),
                 ),
@@ -101,12 +100,15 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16.0), // Adjust the left margin as needed
-            child: Text(widget.description, style: TextStyle(fontSize: 20, fontFamily: "")),
+            padding: EdgeInsets.only(left: 16.0),
+            // Adjust the left margin as needed
+            child: Text(widget.description,
+                style: TextStyle(fontSize: 20, fontFamily: "")),
           ),
           Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0), // Adjust the corner radius as needed
+              borderRadius: BorderRadius.circular(
+                  12.0), // Adjust the corner radius as needed
             ),
             elevation: 4, // Add elevation for a shadow effect
             margin: EdgeInsets.all(8.0), // Add margin for spacing
@@ -117,8 +119,10 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      final cartProvider = Provider.of<CartProvider>(context, listen: false);
-                      cartProvider.addToCart(MenuItem(name: widget.name, price: widget.price));
+                      final cartProvider =
+                          Provider.of<CartProvider>(context, listen: false);
+                      cartProvider.addToCart(
+                          MenuItem(name: widget.name, price: widget.price));
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -149,7 +153,8 @@ class _MenuItemDetailState extends State<MenuItemDetail> {
                       );
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

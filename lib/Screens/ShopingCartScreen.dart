@@ -19,45 +19,45 @@ class CartPage extends StatelessWidget {
       totalAmount += item.price;
     });
 
-
     return Scaffold(
-        appBar: AppBar(
-          title: Text("My Cart"),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Stack(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.shopping_cart),
-                    onPressed: () {
-                      // Add your click listener logic here
-                      // For example, you can navigate to the cart screen
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
-                    },
-                  ),
-                  if (cartItems.length > 0)
-                    Positioned(
-                      right: 8, // Adjust the position as needed
-                      top: 8, // Adjust the position as needed
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.red,
-                        ),
-                        child: Text(
-                          cartItems.length.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
+      appBar: AppBar(
+        title: Text("My Cart"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {
+                    // Add your click listener logic here
+                    // For example, you can navigate to the cart screen
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartPage()));
+                  },
+                ),
+                if (cartItems.length > 0)
+                  Positioned(
+                    right: 8, // Adjust the position as needed
+                    top: 8, // Adjust the position as needed
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                      ),
+                      child: Text(
+                        cartItems.length.toString(),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
-          ],
-        ),
-       body: Center(
+          ),
+        ],
+      ),
+      body: Center(
         child: Column(
           children: <Widget>[
             Expanded(
@@ -67,7 +67,8 @@ class CartPage extends StatelessWidget {
                   final item = cartItems[index];
                   return Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0), // Adjust the corner radius as needed
+                      borderRadius: BorderRadius.circular(
+                          12.0), // Adjust the corner radius as needed
                     ),
                     elevation: 4, // Add elevation for a shadow effect
                     margin: EdgeInsets.all(8.0), // Add margin for spacing
@@ -82,7 +83,6 @@ class CartPage extends StatelessWidget {
                         },
                       ),
                     ),
-
                   );
                 },
               ),
@@ -90,7 +90,8 @@ class CartPage extends StatelessWidget {
             // Display the total amount
             Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0), // Adjust the corner radius as needed
+                borderRadius: BorderRadius.circular(
+                    18.0), // Adjust the corner radius as needed
               ),
               elevation: 4, // Add elevation for a shadow effect
               margin: EdgeInsets.all(8.0), // Add margin for spacing
@@ -102,11 +103,11 @@ class CartPage extends StatelessWidget {
                       child: Text(
                         textAlign: TextAlign.center,
                         'Total Amount: \$${totalAmount.toStringAsFixed(2)}',
-                        style: TextStyle(fontSize: 40, fontFamily: 'mainfontBold'),
+                        style:
+                            TextStyle(fontSize: 40, fontFamily: 'mainfontBold'),
                       ),
                     ),
                   ),
-
                   ElevatedButton.icon(
                     onPressed: () {
                       // Navigate to the next screen here
@@ -124,12 +125,9 @@ class CartPage extends StatelessWidget {
                 ],
               ),
             )
-
           ],
         ),
       ),
     );
   }
-
-
 }
