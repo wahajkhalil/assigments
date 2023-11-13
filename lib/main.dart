@@ -1,60 +1,149 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 void main() {
-
-  runApp(const MyApp());
+  runApp(TaskListScreen());
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class TaskListScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        useMaterial3: false,
-      ),
-      home: HomePage( ),
-    );
-  }
+  _TaskListScreenState createState() => _TaskListScreenState();
 }
 
-class HomePage extends StatelessWidget {
+class _TaskListScreenState extends State<TaskListScreen> {
+  List<Task> tasks = [];
+
+  TextEditingController taskController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text('Pizza hut Home Page',
-
-          style: TextStyle(
-          fontSize: 25,
-          fontFamily: "mainfontBold",
-          color: Colors.white,
-        ),
-
-        ),
+        title: Text('Task List'),
       ),
-     );
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(tasks[index].discription),
+                  subtitle: Text(tasks[index].isCompleted ? 'Completed' : 'Pending'),
+                  leading: Checkbox(
+                    value: tasks[index].isCompleted,
+                    onChanged: (value) {
+                      setState(() {
+                        tasks[index].isCompleted = value!;
+                      });
+                    },
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        tasks.removeAt(index);
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: taskController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter task description',
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      String description = taskController.text;
+                      if (description.isNotEmpty) {
+                        tasks.add(Task(description, false));
+                        taskController.clear();
+                      }
+                    });
+                  },
+                  child: Text('Add Task'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
+
+// class TaskListApp extends StatelessWidget{
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     return MaterialApp(
+//       home:TaskListScreen(),
+//     );
+//
+//   }
+//
+// }
+//
+// class TaskListScreen extends StatefulWidget {
+//   @override
+//   _TaskListScreenState createState() => _TaskListScreenState();
+// }
+class Task{
+  String discription;
+  bool isCompleted;
+  Task(this.discription,this.isCompleted);
+
+}
+//
+// class _TaskListScreenState  extends State<TaskListScreen>{
+//   List <Task> tasks=[];
+//   TextEditingController taskController=TextEditingController();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title:Text("Task Lists")),
+//       body: Column(
+//         children: [
+//           Expanded(child: ListView.builder(
+//              itemCount: tasks.length,
+//               itemBuilder:(context, index) {
+//                 return ListTile(
+//                   title: Text(tasks[index].discription),
+//                   leading: Checkbox(
+//                     value: tasks[index].isCompleted,
+//                     onChanged: (value) {
+//                       setState(() {
+//                         tasks[index].isCompleted=value!;
+//
+//                       });
+//                     },
+//
+//                   ),
+//                     trailing:IconButton(
+//                       icon: Icon(Icons.delete),
+//                       onPressed: () {
+//                         setState(() {
+//                           tasks.removeAt(index);
+//                         });
+//                       },
+//
+//                     )
+//                 );
+//               },))
+//         ],
+//       ),
+//
+//     );
+//   }
+//
+// }
