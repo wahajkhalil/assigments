@@ -26,22 +26,23 @@ class BlocAssignment extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return ListTile(
                           title: Text(tasks[index].description),
-                          subtitle: Text(
-                              tasks[index].isCompleted ? 'Completed' : 'Pending'),
+                          subtitle: Text(tasks[index].isCompleted
+                              ? 'Completed'
+                              : 'Pending'),
                           leading: Checkbox(
                             value: tasks[index].isCompleted,
                             onChanged: (value) {
                               context.read<TaskBloc>().add(
-                                ToggleTaskEvent(index, value ?? false),
-                              );
+                                    ToggleTaskEvent(index, value ?? false),
+                                  );
                             },
                           ),
                           trailing: IconButton(
                             icon: Icon(Icons.delete),
                             onPressed: () {
                               context.read<TaskBloc>().add(
-                                RemoveTaskEvent(index),
-                              );
+                                    RemoveTaskEvent(index),
+                                  );
                             },
                           ),
                         );
@@ -65,8 +66,8 @@ class BlocAssignment extends StatelessWidget {
                             String description = taskController.text;
                             if (description.isNotEmpty) {
                               context.read<TaskBloc>().add(
-                                AddTaskEvent(description),
-                              );
+                                    AddTaskEvent(description),
+                                  );
                               taskController.clear();
                             }
                           },

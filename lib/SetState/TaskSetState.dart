@@ -24,7 +24,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(tasks[index].discription),
-                  subtitle: Text(tasks[index].isCompleted ? 'Completed' : 'Pending'),
+                  subtitle:
+                      Text(tasks[index].isCompleted ? 'Completed' : 'Pending'),
                   leading: Checkbox(
                     value: tasks[index].isCompleted,
                     onChanged: (value) {
@@ -78,11 +79,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
   }
 }
 
-
-class Task{
+class Task {
   String discription;
   bool isCompleted;
-  Task(this.discription,this.isCompleted);
 
+  Task(this.discription, this.isCompleted);
 }
-

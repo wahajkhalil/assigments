@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
- import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class ProviderAssignment extends StatelessWidget {
   TextEditingController taskController = TextEditingController();
@@ -24,8 +24,9 @@ class ProviderAssignment extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(cartItems[index].description),
-                      subtitle: Text(
-                          cartItems[index].isCompleted ? 'Completed' : 'Pending'),
+                      subtitle: Text(cartItems[index].isCompleted
+                          ? 'Completed'
+                          : 'Pending'),
                       leading: Checkbox(
                         value: cartItems[index].isCompleted,
                         onChanged: (value) {
