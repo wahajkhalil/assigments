@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/Block/BlockAssigment.dart';
 import 'package:flutterapp/Provider/TaskProvider.dart';
 import 'package:flutterapp/SetState/TaskSetState.dart';
  import 'package:provider/provider.dart';
@@ -27,11 +28,15 @@ class HomePage extends StatelessWidget {
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: Text('Simple SetState'),
+      title: Text('Assigment 3'),
     ),
     body: Center(
+
       child: Column(
-         children: [
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+           SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -44,6 +49,16 @@ Widget build(BuildContext context) {
 
           SizedBox(height: 16),
           ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>
+                    BlocAssignment()
+                   ),
+              );
+            },
+            child: Text('Press For BlocAssignment'),
+          ),     SizedBox(height: 16), ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
