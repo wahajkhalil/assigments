@@ -56,7 +56,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Button Screen'),
+        title: Text('Assigment 4'),
       ),
       body: Center(
         child: Column(

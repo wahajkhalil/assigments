@@ -137,7 +137,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
           : ListView.builder(
         itemCount: _items.length,
         itemBuilder: (context, index) => Card(
-          color: Colors.orange[200],
+          color: Colors.blue,
           margin: const EdgeInsets.all(15),
           child: ListTile(
               title: Text(_items[index]['title']),
