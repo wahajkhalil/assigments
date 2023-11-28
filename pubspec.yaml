@@ -40,7 +40,10 @@ dependencies:
   path_provider: ^2.0.8
   sqflite: ^2.3.0
   web_socket_channel: ^2.4.0
-
+  showbutton:
+    path: packages/showbutton
+  firebase_core: ^2.23.0
+  firebase_database: ^10.3.5
 
 
 
