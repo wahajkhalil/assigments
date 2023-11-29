@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:css_colors/css_colors.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +9,7 @@ import 'package:flutterapp/Helper.dart';
 import 'package:flutterapp/Task/DatabaseTask.dart';
 import 'package:flutterapp/Task/PackageTask.dart';
 import 'package:showbutton/showbutton.dart';
-
+ 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,10 +32,18 @@ Future<void> _getToken() async {
   String? token = await _firebaseMessaging.getToken();
   print("Device Token: $token");
 }
+
 class Asigment extends StatelessWidget {
 
   final NotificationService _notificationService = NotificationService();
-
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
 
   @override
@@ -44,41 +53,63 @@ class Asigment extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Example'),
+        backgroundColor:CSSColors.cadetBlue,
+         title: Text('Flutter Assigment 5'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: buttonWidth,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PackageTask()),
-                  );
-                },
-                child: Text('Package task'),
+      body: Container(
+        color: CSSColors.blanchedAlmond,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: buttonWidth,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PackageTask()),
+                    );
+                  },
+                  child: Text('Package task'),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: buttonWidth,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
-                },
-                child: Text('Realtime realtime'),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: buttonWidth,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  },
+                  child: Text('Realtime realtime'),
+                ))
+                 , SizedBox(height: 20),
+              SizedBox(
+                width: buttonWidth,
+                child: ElevatedButton(
+                  onPressed: () {
+                    openSystemsLtdWebsite();
+                  },
+                  child: Text('Launch Url'),
+                ),
               ),
-            ),
-            // Add more buttons as needed
-          ],
+              // Add more buttons as needed
+            ],
+          ),
         ),
       ),
     );
+  }
+  void openSystemsLtdWebsite() async {
+    // const url = 'https://www.systemsltd.com/';
+    // _launchInBrowser(url as Uri);
+    // // if (await canLaunchUrl(url as Uri)) {
+    // //   await canLaunchUrl(url.toString() as Uri);
+    // // } else {
+    //   throw 'Could not launch $url';
+    // }
   }
 }
