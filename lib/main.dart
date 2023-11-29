@@ -9,7 +9,8 @@ import 'package:flutterapp/Helper.dart';
 import 'package:flutterapp/Task/DatabaseTask.dart';
 import 'package:flutterapp/Task/PackageTask.dart';
 import 'package:showbutton/showbutton.dart';
- 
+import 'package:url_launcher/url_launcher.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -91,7 +92,7 @@ class Asigment extends StatelessWidget {
                 width: buttonWidth,
                 child: ElevatedButton(
                   onPressed: () {
-                    openSystemsLtdWebsite();
+                    makePhoneCall("45466465");
                   },
                   child: Text('Launch Url'),
                 ),
@@ -103,13 +104,19 @@ class Asigment extends StatelessWidget {
       ),
     );
   }
-  void openSystemsLtdWebsite() async {
-    // const url = 'https://www.systemsltd.com/';
-    // _launchInBrowser(url as Uri);
-    // // if (await canLaunchUrl(url as Uri)) {
-    // //   await canLaunchUrl(url.toString() as Uri);
-    // // } else {
-    //   throw 'Could not launch $url';
-    // }
+
+  void openGoogleWebsite() async {
+
+
+
+   }
+  void makePhoneCall(String phoneNumber) async {
+    final String url = 'tel:$phoneNumber';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
