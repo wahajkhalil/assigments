@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       deleteStudent(student.key!);
                     },
-                    child: const Icon(Icons.delete, color: Colors.red),
+                    child: const Icon(Icons.delete, color: Colors.black),
                   ),
                 ],
               ),
