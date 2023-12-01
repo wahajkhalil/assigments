@@ -1,122 +1,112 @@
-import 'dart:async';
-
-import 'package:css_colors/css_colors.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutterapp/Helper.dart';
-import 'package:flutterapp/Task/DatabaseTask.dart';
-import 'package:flutterapp/Task/PackageTask.dart';
-import 'package:showbutton/showbutton.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  runApp(MyApp());
+   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _currentLocale = Locale("en");
+
+  void _toggleLanguage() {
+    setState(() {
+      _currentLocale = _currentLocale.languageCode == "en"
+          ? Locale("es")
+          : Locale("en");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    _getToken();
     return MaterialApp(
-      home: Asigment(),
+      locale: _currentLocale,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [Locale("en"), Locale("es")],
+      home: MyHomePage(toggleLanguage: _toggleLanguage),
     );
   }
 }
-Future<void> _getToken() async {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  String? token = await _firebaseMessaging.getToken();
-  print("Device Token: $token");
-}
+class MyHomePage extends StatelessWidget {
+  final VoidCallback toggleLanguage;
 
-class Asigment extends StatelessWidget {
-
-  final NotificationService _notificationService = NotificationService();
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
+  MyHomePage({required this.toggleLanguage});
 
   @override
   Widget build(BuildContext context) {
-    double buttonWidth = 200.0; // Set the desired width for the buttons
-    _notificationService.initialize(); // Initialize notifications
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:CSSColors.cadetBlue,
-         title: Text('Flutter Assigment 5'),
-      ),
-      body: Container(
-        color: CSSColors.blanchedAlmond,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: buttonWidth,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PackageTask()),
-                    );
-                  },
-                  child: Text('Package task'),
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: buttonWidth,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  },
-                  child: Text('Realtime realtime'),
-                ))
-                 , SizedBox(height: 20),
-              SizedBox(
-                width: buttonWidth,
-                child: ElevatedButton(
-                  onPressed: () {
-                    makePhoneCall("45466465");
-                  },
-                  child: Text('Launch Url'),
-                ),
-              ),
-              // Add more buttons as needed
-            ],
+        title: Text(AppLocalizations.of(context)!.helloworld),
+        actions: [
+          Switch(
+            value: Localizations.localeOf(context).languageCode == "es",
+            onChanged: (value) {
+              toggleLanguage();
+            },
+            activeTrackColor: Colors.lightGreenAccent,
+            activeColor: Colors.green,
+            inactiveThumbColor: Colors.redAccent,
+            inactiveTrackColor: Colors.orangeAccent,
           ),
+        ],
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            _showLocationDialog(context);
+          },
+          child: Text('Show Location'),
         ),
       ),
     );
   }
 
-  void openGoogleWebsite() async {
+  Future<String> _getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
 
-
-
-   }
-  void makePhoneCall(String phoneNumber) async {
-    final String url = 'tel:$phoneNumber';
-
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
+      return 'Latitude: ${position.latitude}, Longitude: ${position.longitude}';
+    } catch (e) {
+      print(e);
+      return 'Error getting location';
     }
+  }
+
+  Future<void> _showLocationDialog(BuildContext context) async {
+    String locationMessage = await _getCurrentLocation();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Current Location'),
+          content: Text(locationMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
