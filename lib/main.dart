@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:css_colors/css_colors.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -8,14 +9,25 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutterapp/Helper.dart';
 import 'package:flutterapp/Task/DatabaseTask.dart';
 import 'package:flutterapp/Task/PackageTask.dart';
+import 'package:flutterapp/Task/httptask.dart';
 import 'package:showbutton/showbutton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  HttpOverrides.global = MyHttpOverrides();
 
   runApp(MyApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -96,6 +108,17 @@ class Asigment extends StatelessWidget {
                   },
                   child: Text('Launch Url'),
                 ),
+              ),   SizedBox(height: 20),
+              SizedBox(
+                width: buttonWidth,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyHomePageHttp()),
+                    );                  },
+                  child: Text('Http'),
+                ),
               ),
               // Add more buttons as needed
             ],
@@ -110,6 +133,10 @@ class Asigment extends StatelessWidget {
 
 
    }
+
+
+
+
   void makePhoneCall(String phoneNumber) async {
     final String url = 'tel:$phoneNumber';
 
