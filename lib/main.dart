@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutterapp/cameraopen.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:camera/camera.dart'; // Import the camera package
+
+List<CameraDescription> cameras = [];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   runApp(MyApp());
+  cameras = await availableCameras(); // Initialize cameras
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -65,11 +70,25 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _showLocationDialog(context);
-          },
-          child: Text('Show Location'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                _showLocationDialog(context);
+              },
+              child: Text('Show Location'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                  availableCameras().then((value) => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+
+              },
+              child: Text('Open Camera'),
+            ),
+          ],
         ),
       ),
     );
@@ -110,3 +129,5 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
